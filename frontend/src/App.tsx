@@ -11,6 +11,8 @@ import {
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import ComponentDemo from "./pages/ComponentDemo";
 import "./App.css";
@@ -38,7 +40,7 @@ const theme = createTheme({
   typography: {
     fontFamily: '"Inter", sans-serif',
     button: {
-      textTransform: 'none',
+      textTransform: "none",
       fontWeight: 500,
     },
   },
@@ -53,9 +55,21 @@ function App() {
       <CssBaseline />
       <Router>
         <div className="min-h-screen bg-background">
-          <AppBar position="static" className="mb-8" sx={{ backgroundColor: '#4F46E5' }}>
+          <AppBar
+            position="static"
+            className="mb-8"
+            sx={{ backgroundColor: "#4F46E5" }}
+          >
             <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Inter, sans-serif', fontWeight: 600 }}>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  flexGrow: 1,
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: 600,
+                }}
+              >
                 BizTrack
               </Typography>
               <Button color="inherit" component={Link} to="/" className="mx-2">
@@ -102,6 +116,8 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/demo" element={<ComponentDemo />} />
             </Routes>
           </Container>
