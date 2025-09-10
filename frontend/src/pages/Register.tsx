@@ -1,122 +1,146 @@
 import React, { useState } from "react";
 import {
-  Paper,
-  TextField,
+  TextInput,
   Button,
-  Typography,
-  Box,
-  Container,
-  Link,
-} from "@mui/material";
-import { PersonAdd } from "@mui/icons-material";
+  FormError,
+  FormContainer,
+  LinkText,
+  Logo,
+} from "../components/ui";
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    // Clear error when user starts typing
+    if (error) setError("");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement registration logic
-    console.log("Registration data:", formData);
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError("");
+
+    // Validation
+    if (!formData.name.trim()) {
+      setError("Name is required");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setError("Email is required");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.password || formData.password.length < 6) {
+      setError("Password must be at least 6 characters");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Simulate API call to backend
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Registration successful:", data);
+        // Handle success (redirect to dashboard or login)
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || "Registration failed");
+      }
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLoginClick = () => {
+    // TODO: Navigate to login page
+    console.log("Navigate to login page");
   };
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={3} className="p-8 mt-8">
-        <Box className="text-center mb-6">
-          <PersonAdd className="text-blue-500 mb-4" sx={{ fontSize: 48 }} />
-          <Typography
-            variant="h4"
-            component="h1"
-            className="mb-2 font-bold text-gray-800"
-          >
-            Create Account
-          </Typography>
-          <Typography variant="body1" className="text-gray-600">
-            Join BizTrack and start managing your business today
-          </Typography>
-        </Box>
+    <div className="min-h-screen bg-gray-50">
+      <FormContainer>
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <Logo size="medium" />
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <TextField
-            fullWidth
-            label="Full Name"
-            name="name"
+        {/* Title */}
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">Create your account</h1>
+        </div>
+
+        {/* Error Display */}
+        <FormError message={error} />
+
+        {/* Form */}
+        <div className="space-y-4">
+          <TextInput
+            placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
-            variant="outlined"
-            className="mb-4"
+            name="name"
             required
           />
 
-          <TextField
-            fullWidth
-            label="Email Address"
-            name="email"
+          <TextInput
             type="email"
+            placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
-            variant="outlined"
-            className="mb-4"
+            name="email"
             required
           />
 
-          <TextField
-            fullWidth
-            label="Password"
-            name="password"
+          <TextInput
             type="password"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-            variant="outlined"
-            className="mb-4"
+            name="password"
             required
           />
 
-          <TextField
-            fullWidth
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            variant="outlined"
-            className="mb-6"
-            required
-          />
+          <div className="pt-2">
+            <Button
+              text="Register"
+              onClick={handleSubmit}
+              loading={loading}
+              fullWidth
+            />
+          </div>
+        </div>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            size="large"
-            className="bg-blue-600 hover:bg-blue-700 py-3"
-          >
-            Create Account
-          </Button>
-        </form>
-
-        <Box className="text-center mt-6">
-          <Typography variant="body2" className="text-gray-600">
-            Already have an account?{" "}
-            <Link href="#" className="text-blue-600 hover:text-blue-800">
-              Sign in here
-            </Link>
-          </Typography>
-        </Box>
-      </Paper>
-    </Container>
+        {/* Login Link */}
+        <div className="text-center mt-6">
+          <span className="text-gray-600">Already have an account? </span>
+          <LinkText text="Login" onClick={handleLoginClick} />
+        </div>
+      </FormContainer>
+    </div>
   );
 };
 
