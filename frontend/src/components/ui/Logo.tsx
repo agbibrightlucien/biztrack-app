@@ -25,8 +25,8 @@ const Logo: React.FC<LogoProps> = ({ animated = false, size = "medium" }) => {
         animated ? "animate-pulse" : ""
       }`}
     >
-      <Business className="text-blue-600" sx={{ fontSize: iconSizes[size] }} />
-      <span className={`font-bold text-gray-800 ${sizeClasses[size]}`}>
+      <Business className="text-primary" sx={{ fontSize: iconSizes[size] }} />
+      <span className={`font-bold text-text-primary ${sizeClasses[size]}`}>
         BizTrack
       </span>
     </div>

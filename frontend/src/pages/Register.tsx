@@ -82,7 +82,7 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <FormContainer>
         {/* Logo */}
         <div className="text-center mb-8">
@@ -91,14 +91,14 @@ const Register: React.FC = () => {
 
         {/* Title */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Create your account</h1>
+          <h1 className="text-2xl font-bold text-text-primary">Create your account</h1>
         </div>
 
         {/* Error Display */}
         <FormError message={error} />
 
         {/* Form */}
-        <div className="space-y-4">
+        <div className="space-y-form">
           <TextInput
             placeholder="Full Name"
             value={formData.name}
@@ -127,7 +127,7 @@ const Register: React.FC = () => {
 
           <div className="pt-2">
             <Button
-              text="Register"
+              text="REGISTER"
               onClick={handleSubmit}
               loading={loading}
               fullWidth
@@ -137,7 +137,7 @@ const Register: React.FC = () => {
 
         {/* Login Link */}
         <div className="text-center mt-6">
-          <span className="text-gray-600">Already have an account? </span>
+          <span className="text-text-secondary">Already have an account? </span>
           <LinkText text="Login" onClick={handleLoginClick} />
         </div>
       </FormContainer>

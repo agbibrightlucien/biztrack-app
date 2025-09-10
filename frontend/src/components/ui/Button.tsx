@@ -26,10 +26,10 @@ const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
 }) => {
   const baseClasses =
-    "px-6 py-3 font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center";
+    "px-6 py-3 font-medium text-base rounded-button transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-button";
 
   const variantClasses = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500",
+    primary: "bg-primary text-white hover:bg-primary-light focus:ring-primary",
     secondary: "bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500",
   };
 

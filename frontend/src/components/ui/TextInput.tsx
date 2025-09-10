@@ -32,7 +32,7 @@ const TextInput: React.FC<TextInputProps> = ({
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-form">
       <div className="relative">
         <input
           type={inputType}
@@ -41,12 +41,12 @@ const TextInput: React.FC<TextInputProps> = ({
           onChange={onChange}
           name={name}
           required={required}
-          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+          className={`w-full px-4 py-3 text-base font-normal border rounded-input focus:outline-none focus:ring-0 focus:border-primary transition-all duration-200 ${
             showPasswordToggle && type === "password" ? "pr-12" : ""
           } ${
             error
-              ? "border-red-500 bg-red-50"
-              : "border-gray-300 hover:border-gray-400"
+              ? "border-text-error bg-red-50 text-text-error placeholder-text-error"
+              : "border-gray-300 bg-background-card text-text-primary placeholder-text-secondary hover:border-gray-400 focus:border-primary focus:shadow-input-focus"
           }`}
         />
         
@@ -54,7 +54,7 @@ const TextInput: React.FC<TextInputProps> = ({
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-text-secondary hover:text-text-primary transition-colors duration-200"
           >
             {showPassword ? (
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,7 +70,7 @@ const TextInput: React.FC<TextInputProps> = ({
         )}
       </div>
       
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+      {error && <p className="mt-2 text-sm text-text-error font-medium">{error}</p>}
     </div>
   );
 };

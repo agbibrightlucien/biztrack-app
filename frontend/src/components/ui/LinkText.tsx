@@ -14,7 +14,7 @@ const LinkText: React.FC<LinkTextProps> = ({
   className = "",
 }) => {
   const baseClasses =
-    "text-blue-600 hover:text-blue-800 cursor-pointer transition-colors";
+    "text-primary hover:text-primary-light cursor-pointer transition-colors duration-200 font-medium hover:underline";
   const classes = `${baseClasses} ${className}`;
 
   if (href) {

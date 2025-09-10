@@ -20,11 +20,30 @@ const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#1976d2",
+      main: "#4F46E5",
+      light: "#6366F1",
     },
     secondary: {
-      main: "#dc004e",
+      main: "#6B7280",
     },
+    background: {
+      default: "#F9FAFB",
+      paper: "#FFFFFF",
+    },
+    text: {
+      primary: "#111827",
+      secondary: "#6B7280",
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", sans-serif',
+    button: {
+      textTransform: 'none',
+      fontWeight: 500,
+    },
+  },
+  shape: {
+    borderRadius: 8,
   },
 });
 
@@ -33,10 +52,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <div className="min-h-screen bg-gray-50">
-          <AppBar position="static" className="mb-8">
+        <div className="min-h-screen bg-background">
+          <AppBar position="static" className="mb-8" sx={{ backgroundColor: '#4F46E5' }}>
             <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Inter, sans-serif', fontWeight: 600 }}>
                 BizTrack
               </Typography>
               <Button color="inherit" component={Link} to="/" className="mx-2">
