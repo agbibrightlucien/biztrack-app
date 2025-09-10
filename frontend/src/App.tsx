@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ComponentDemo from "./pages/ComponentDemo";
 import "./App.css";
@@ -52,6 +53,14 @@ function App() {
               <Button
                 color="inherit"
                 component={Link}
+                to="/login"
+                className="mx-2"
+              >
+                Login
+              </Button>
+              <Button
+                color="inherit"
+                component={Link}
                 to="/dashboard"
                 className="mx-2"
               >
@@ -72,6 +81,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/demo" element={<ComponentDemo />} />
             </Routes>

@@ -9,10 +9,9 @@ import {
   Logo,
 } from "../components/ui";
 
-const Register: React.FC = () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -34,27 +33,21 @@ const Register: React.FC = () => {
     setError("");
 
     // Validation
-    if (!formData.name.trim()) {
-      setError("Name is required");
-      setLoading(false);
-      return;
-    }
-
     if (!formData.email.trim()) {
       setError("Email is required");
       setLoading(false);
       return;
     }
 
-    if (!formData.password || formData.password.length < 6) {
-      setError("Password must be at least 6 characters");
+    if (!formData.password) {
+      setError("Password is required");
       setLoading(false);
       return;
     }
 
     try {
-      // Simulate API call to backend
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      // API call to backend login endpoint
+      const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,11 +57,13 @@ const Register: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Registration successful:", data);
-        // Handle success (redirect to dashboard or login)
+        console.log("Login successful:", data);
+        // Store token and redirect to dashboard
+        localStorage.setItem("token", data.token);
+        navigate("/dashboard");
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Registration failed");
+        setError(errorData.message || "Invalid credentials");
       }
     } catch {
       setError("Network error. Please try again.");
@@ -77,8 +72,13 @@ const Register: React.FC = () => {
     }
   };
 
-  const handleLoginClick = () => {
-    navigate("/login");
+  const handleForgotPassword = () => {
+    // TODO: Navigate to forgot password page
+    console.log("Navigate to forgot password page");
+  };
+
+  const handleRegisterClick = () => {
+    navigate("/register");
   };
 
   return (
@@ -91,7 +91,7 @@ const Register: React.FC = () => {
 
         {/* Title */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Create your account</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
         </div>
 
         {/* Error Display */}
@@ -99,14 +99,6 @@ const Register: React.FC = () => {
 
         {/* Form */}
         <div className="space-y-4">
-          <TextInput
-            placeholder="Full Name"
-            value={formData.name}
-            onChange={handleChange}
-            name="name"
-            required
-          />
-
           <TextInput
             type="email"
             placeholder="Email Address"
@@ -123,11 +115,12 @@ const Register: React.FC = () => {
             onChange={handleChange}
             name="password"
             required
+            showPasswordToggle
           />
 
           <div className="pt-2">
             <Button
-              text="Register"
+              text="Login"
               onClick={handleSubmit}
               loading={loading}
               fullWidth
@@ -135,14 +128,20 @@ const Register: React.FC = () => {
           </div>
         </div>
 
-        {/* Login Link */}
-        <div className="text-center mt-6">
-          <span className="text-gray-600">Already have an account? </span>
-          <LinkText text="Login" onClick={handleLoginClick} />
+        {/* Links */}
+        <div className="space-y-3 mt-6">
+          <div className="text-center">
+            <LinkText text="Forgot Password?" onClick={handleForgotPassword} />
+          </div>
+          
+          <div className="text-center">
+            <span className="text-gray-600">Don't have an account? </span>
+            <LinkText text="Register" onClick={handleRegisterClick} />
+          </div>
         </div>
       </FormContainer>
     </div>
   );
 };
 
-export default Register;
+export default Login;
