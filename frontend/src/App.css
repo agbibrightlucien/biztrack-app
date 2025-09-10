@@ -5,6 +5,27 @@
   text-align: center;
 }
 
+.app {
+  text-align: left;
+}
+
+.nav {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #646cff;
+  font-weight: 500;
+}
+
+.nav a:hover {
+  color: #535bf2;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
